@@ -10,7 +10,7 @@ const server = app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 })
 
-
+//initialize socket.io server
 const io = require('socket.io')(server);
 let socketConnected = new Set();
 
@@ -29,11 +29,13 @@ io.on('connection',(socket)=>{
     });
 
 
+    //listen for incoming chat message
     socket.on('message', (data)=>{
         // console.log(data);
         socket.broadcast.emit('chat-message', data)
     })
 
+    //listen for typing feedback
     socket.on('feedback', (data) => {
         socket.broadcast.emit('feedback', data)
     })

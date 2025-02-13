@@ -1,3 +1,4 @@
+//initialize socket
 const socket = io();
 
 const clientsTotal = document.getElementById('client-total');
@@ -6,21 +7,22 @@ const messageContainer = document.getElementById('message-container');
 const nameInput = document.getElementById('name-input');
 const messageForm = document.getElementById('message-form');
 const messageInput = document.getElementById('message-input');
-const chatContainer = document.getElementById('chatContainer');
 const feedback = document.getElementById('feedback');
 
 const messageTone = new Audio('/messagetone.mp3');
+
+//listen for total clients
+socket.on('clients-total', (data) => {
+    // console.log(data);
+    clientsTotal.innerHTML = `Total Clients: ${data}`
+})
 
 messageForm.addEventListener('submit', (e) => {
     e.preventDefault();
     sendMessage();
 })
 
-socket.on('clients-total', (data) => {
-    // console.log(data);
-    clientsTotal.innerHTML = `Total Clients: ${data}`
-})
-
+//send message to server and add to UI
 function sendMessage(){
     // console.log(messageInput.value);
     if(messageInput.value === '') return;
@@ -36,6 +38,7 @@ function sendMessage(){
     clearFeedback();
 }
 
+//listen for incoming chat message
 socket.on('chat-message', (data) => {
     addMessageToUI(false, data);
 
@@ -65,14 +68,10 @@ function addMessageToUI(isOwnMessage, data){
 }
 
 function scrollToBottom() {
-    setTimeout(() => {
-        const lastMessage = messageContainer.lastElementChild;
-        if (lastMessage) {
-            lastMessage.scrollIntoView({ behavior: 'smooth', block: 'end' });
-        }
-    }, 100);
+    messageContainer.scrollTop = messageContainer.scrollHeight;
 }
 
+//handle typing feedback and emit to server
 let typingTimer;
 messageInput.addEventListener('keypress', (e) => {
     socket.emit('feedback', {
@@ -80,19 +79,11 @@ messageInput.addEventListener('keypress', (e) => {
     });
     clearTimeout(typingTimer);
     typingTimer = setTimeout(() => {
-        socket.emit('feedback', {
-            feedback: ''
-        })
+        socket.emit('feedback', {feedback: ''})
     }, 1500);
 })
 
-messageInput.addEventListener('blur', (e) => {
-    socket.emit('feedback', {
-        feedback: ''
-    })
-})
-
-
+//listen for feedback from server
 socket.on('feedback', (data) => {
     clearFeedback();
     if (data.feedback.trim() !== "") {
@@ -105,7 +96,5 @@ socket.on('feedback', (data) => {
 });
 
 function clearFeedback(){
-    document.querySelectorAll('li.message-feedback').forEach(element => {
-        element.parentNode.removeChild(element)
-    })
+    document.querySelectorAll('li.message-feedback').forEach(element => element.remove())
 }
