@@ -1,145 +1,173 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     scroll-behavior: smooth;
 }
 
-body{
+body {
     font-family: 'Open Sans', sans-serif;
-    /* display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center; */
     display: grid;
     place-items: center;
-    background-color: #ebebeb;
+    background: linear-gradient(135deg, #ece9e6, #ffffff);
+    min-height: 100vh;
 }
 
-.title{
+.title {
     margin: 20px 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: #444;
 }
 
-.main{
-    border: 8px solid #dddddd;
+.main {
+    border: 8px solid #ddd;
     border-radius: 24px;
     overflow: hidden;
+    background: linear-gradient(145deg, #f8f8f8, #ebebeb);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.name{
+.name {
     display: flex;
     font-size: 32px;
     font-weight: 700;
     padding: 8px 16px;
-    color: #7e7e7e;
-    background-color: #ebebeb;
+    color: #5c5c5c;
+    background: linear-gradient(90deg, #ebebeb, #dcdcdc);
 }
 
 .name > span {
-    color: #bbb;
+    color: #a0a0a0;
 }
 
-.name-input{
+.name-input {
     font-size: 24px;
     font-weight: 700;
-    color: #7e7e7e;
+    color: #5c5c5c;
     flex-grow: 1;
     border: none;
     margin: 0px 12px;
     outline: none;
-    background-color: #ebebeb;
+    background: transparent;
 }
 
 .message-container {
     display: flex;
     flex-direction: column;
-    background-color: #f6f6f6;
+    background: linear-gradient(180deg, #f9f9f9, #e6e6e6);
     width: 400px;
     height: 600px;
     overflow-y: auto;
-    overflow-x: hidden;
-    padding-bottom: 40px;  /* Reserve space for typing feedback */
+    padding-bottom: 40px;
     position: relative;
+    border-radius: 8px;
 }
 
 .message-feedback {
     width: 100%;
     text-align: center;
     padding-bottom: 8px;
+    font-style: italic;
+    color: #5c5c5c;
+    opacity: 0.8;
 }
 
-.message-left, .message-right{
+.message-left, .message-right {
     list-style: none;
     padding: 8px 12px;
     margin: 12px;
     max-width: 250px;
     font-size: 18px;
     word-wrap: break-word;
+    border-radius: 12px;
 }
 
-.message-left{
-    border-radius: 20px 20px 20px 0px;
+.message-left {
+    background: linear-gradient(145deg, #ffffff, #e0e0e0);
     align-self: flex-start;
-    background-color: #fff;
-    box-shadow: -2px 2px 4px #dcdcdc;
+    box-shadow: -2px 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.message-right{
-    border-radius: 20px 20px 0px 20px;
+.message-right {
+    background: linear-gradient(145deg, #4c4c4c, #2d2d2d);
     align-self: flex-end;
-    background-color: #2d2d2d;
-    box-shadow: 2px 2px 4px #dcdcdc;
-    color: #f6f6f6;
+    color: #fff;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.message-left > p > span, .message-right > p > span  {
+.message-left > p > span, .message-right > p > span {
     display: block;
     font-style: italic;
     font-size: 12px;
     margin-top: 4px;
+    opacity: 0.7;
 }
 
-.feedback{
-    font-style: italic;
+.feedback {
     font-size: 14px;
-    padding: 0px 16px 16px 16px;
-    color: #2d2d2d;
+    padding: 12px;
+    color: #5c5c5c;
     text-align: center;
 }
 
-.message-form{
+.message-form {
     display: flex;
     justify-content: space-between;
     width: 400px;
+    margin-top: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.message-input{
+.message-input {
     flex-grow: 1;
     height: 48px;
     font-size: 16px;
     border: none;
-    outline: none;
     padding: 0px 12px;
-    background-color: #fff;
+    background: #fff;
+    border-radius: 8px 0 0 8px;
+    outline: none;
 }
 
-.send-button{
+.send-button {
     height: 48px;
     font-size: 16px;
     border: none;
     padding: 0px 12px;
-    outline: none;
-    background-color: #fff;
+    background: linear-gradient(145deg, #555, #333);
+    color: #fff;
     cursor: pointer;
+    border-radius: 0 8px 8px 0;
+    transition: background 0.2s ease-in-out;
 }
 
-.v-divider{
+.send-button:hover {
+    background: linear-gradient(145deg, #666, #444);
+}
+
+.v-divider {
     height: 48px;
     width: 2px;
-    background-color: #f6f6f6;
+    background: #ddd;
 }
 
-.clients-total{
+.clients-total {
     margin: 20px 0;
-    color: #7e7e7e;
+    font-size: 16px;
+    color: #555;
+}
+
+/* Smooth Fade In for Messages */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
